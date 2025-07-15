@@ -1,0 +1,96 @@
+import random
+
+state_capitals = {
+    "Alabama": "Montgomery",
+    "Alaska": "Juneau",
+    "Arizona": "Phoenix",
+    "Arkansas": "Little Rock",
+    "California": "Sacramento",
+    "Colorado": "Denver",
+    "Connecticut": "Hartford",
+    "Delaware": "Dover",
+    "Florida": "Tallahassee",
+    "Georgia": "Atlanta",
+    "Hawaii": "Honolulu",
+    "Idaho": "Boise",
+    "Illinois": "Springfield",
+    "Indiana": "Indianapolis",
+    "Iowa": "Des Moines",
+    "Kansas": "Topeka",
+    "Kentucky": "Frankfort",
+    "Louisiana": "Baton Rouge",
+    "Maine": "Augusta",
+    "Maryland": "Annapolis",
+    "Massachusetts": "Boston",
+    "Michigan": "Lansing",
+    "Minnesota": "Saint Paul",
+    "Mississippi": "Jackson",
+    "Missouri": "Jefferson City",
+    "Montana": "Helena",
+    "Nebraska": "Lincoln",
+    "Nevada": "Carson City",
+    "New Hampshire": "Concord",
+    "New Jersey": "Trenton",
+    "New Mexico": "Santa Fe",
+    "New York": "Albany",
+    "North Carolina": "Raleigh",
+    "North Dakota": "Bismarck",
+    "Ohio": "Columbus",
+    "Oklahoma": "Oklahoma City",
+    "Oregon": "Salem",
+    "Pennsylvania": "Harrisburg",
+    "Rhode Island": "Providence",
+    "South Carolina": "Columbia",
+    "South Dakota": "Pierre",
+    "Tennessee": "Nashville",
+    "Texas": "Austin",
+    "Utah": "Salt Lake City",
+    "Vermont": "Montpelier",
+    "Virginia": "Richmond",
+    "Washington": "Olympia",
+    "West Virginia": "Charleston",
+    "Wisconsin": "Madison",
+    "Wyoming": "Cheyenne"
+}
+
+num_questions = 0
+max_questions = len(state_capitals)
+
+while True:
+    try:
+        num_questions_str = input(f"How many questions do you want? (1-{max_questions}): ")
+        num_questions = int(num_questions_str)
+        if 1 <= num_questions <= max_questions:
+            break
+        else:
+            print(f"Please enter a number between 1 and {max_questions}.")
+    except ValueError:
+        print("Invalid input. Please enter a number.")
+
+score = 0
+asked_states = []
+
+for _ in range(num_questions):
+    while True:
+        current_state = random.choice(list(state_capitals.keys()))
+        if current_state not in asked_states:
+            asked_states.append(current_state)
+            break
+    
+    correct_capital = state_capitals[current_state]
+    
+    user_answer = input(f"What is the capital of {current_state}? ").strip()
+
+    if user_answer.lower() == correct_capital.lower():
+        print("Correct!")
+        score += 1
+    else:
+        print(f"Incorrect. The capital of {current_state} is {correct_capital}.")
+
+print(f"\nQuiz complete! You got {score} out of {num_questions} questions correct.")
+if score == num_questions:
+    print("Excellent! You know your state capitals!")
+elif score >= num_questions * 0.7:
+    print("Good job! You know most of your state capitals.")
+else:
+    print("Keep studying! You can improve your state capital knowledge.")
